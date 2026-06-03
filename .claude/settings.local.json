@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell([Environment]::SetEnvironmentVariable\\(\"Path\", [Environment]::GetEnvironmentVariable\\(\"Path\", \"User\"\\) + \";C:\\\\Users\\\\AlphaTapfuma\\\\.local\\\\bin\", \"User\"\\))"
+    ]
+  }
+}
