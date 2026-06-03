@@ -158,3 +158,4 @@ a { color: inherit; text-decoration: none; }
 @keyframes ffFade      { from { opacity: 0; } to { opacity: 1; } }
 @keyframes dashmove    { to { stroke-dashoffset: -28; } }
 @keyframes pulsering   { 0% { r: 13; opacity: .6; } 100% { r: 30; opacity: 0; } }
+@keyframes ff-marquee  { from { transform: translateX(0); } to { transform: translateX(-50%); } }

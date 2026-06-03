@@ -5,15 +5,15 @@ import { Phone } from 'lucide-react'
 // All coordinates derived from city dot positions on the map photo
 
 const cities = {
-  JHB: { x: 415, y: 187, name: 'Johannesburg', tag: 'Head office',        phone: '011 387 7000' },
-  DBN: { x: 510, y: 312, name: 'Durban',        tag: 'KZN depot',          phone: '031 569 1451' },
+  JHB: { x: 395, y: 202, name: 'Johannesburg', tag: 'Head office',        phone: '011 387 7000' },
+  DBN: { x: 527, y: 305, name: 'Durban',        tag: 'KZN depot',          phone: '031 569 1451' },
   CPT: { x: 198, y: 437, name: 'Cape Town',     tag: 'Western Cape depot', phone: '021 036 0333' },
 }
 
 // Every city dot visible on the map photo — label positioned to avoid overlap
 const hubs = [
   { id: 'PTA', x: 420, y: 163, label: 'Pretoria',        ax: 'start',  dy: 16  },
-  { id: 'PLK', x: 460, y: 101, label: 'Polokwane',       ax: 'middle', dy: -10 },
+  { id: 'PLK', x: 472, y:  88, label: 'Polokwane',       ax: 'middle', dy: -10 },
   { id: 'NLS', x: 485, y: 178, label: 'Nelspruit',       ax: 'start',  dy: -8  },
   { id: 'MFG', x: 350, y: 168, label: 'Mafikeng',        ax: 'middle', dy: -10 },
   { id: 'KLK', x: 365, y: 216, label: 'Klerksdorp',      ax: 'end',    dy: -8  },
@@ -25,41 +25,6 @@ const hubs = [
   { id: 'ELN', x: 420, y: 418, label: 'East London',     ax: 'middle', dy: 17  },
   { id: 'PLZ', x: 365, y: 442, label: 'Port Elizabeth',  ax: 'middle', dy: 16  },
   { id: 'MSL', x: 300, y: 442, label: 'Mossel Bay',      ax: 'middle', dy: 16  },
-]
-
-// Major depot arteries
-const routes = [
-  { id: 'r1', d: 'M415,187 Q462,250 510,312', from: 'JHB', to: 'DBN' },
-  { id: 'r2', d: 'M415,187 Q307,312 198,437', from: 'JHB', to: 'CPT' },
-  { id: 'r3', d: 'M510,312 Q354,375 198,437', from: 'DBN', to: 'CPT' },
-]
-
-// Hub routes — follow real road corridors so no city is bypassed
-const hubRoutes = [
-  // Limpopo corridor (N1 north)
-  { id: 'h01', d: 'M415,187 Q417,175 420,163', dur: '3s'   }, // JHB → PTA
-  { id: 'h02', d: 'M420,163 Q440,132 460,101', dur: '4.5s' }, // PTA → PLK
-  // Mpumalanga (N4 east)
-  { id: 'h03', d: 'M420,163 Q452,170 485,178', dur: '4s'   }, // PTA → NLS
-  { id: 'h04', d: 'M485,178 Q472,139 460,101', dur: '4.5s' }, // NLS → PLK
-  // North West (N14 west)
-  { id: 'h05', d: 'M415,187 Q390,201 365,216', dur: '4s'   }, // JHB → KLK
-  { id: 'h06', d: 'M365,216 Q358,192 350,168', dur: '4s'   }, // KLK → MFG
-  // Northern Cape (N12 / N10)
-  { id: 'h07', d: 'M365,216 Q352,237 340,259', dur: '5s'   }, // KLK → KIM
-  { id: 'h08', d: 'M340,259 Q300,250 260,240', dur: '5.5s' }, // KIM → UPT
-  { id: 'h09', d: 'M260,240 Q229,339 198,437', dur: '7s'   }, // UPT → CPT
-  // Free State (N1 south)
-  { id: 'h10', d: 'M415,187 Q408,231 400,274', dur: '5s'   }, // JHB → BFN
-  // Eastern Cape coast (N9 / N2)
-  { id: 'h11', d: 'M400,274 Q382,358 365,442', dur: '5.5s' }, // BFN → PLZ
-  { id: 'h12', d: 'M365,442 Q332,442 300,442', dur: '4s'   }, // PLZ → MSL
-  { id: 'h13', d: 'M300,442 Q249,440 198,437', dur: '5s'   }, // MSL → CPT
-  { id: 'h14', d: 'M365,442 Q392,430 420,418', dur: '4.5s' }, // PLZ → ELN
-  { id: 'h15', d: 'M420,418 Q428,406 435,394', dur: '3.5s' }, // ELN → UMT
-  // KZN coast (N2 north)
-  { id: 'h16', d: 'M435,394 Q462,346 490,298', dur: '4.5s' }, // UMT → PMB
-  { id: 'h17', d: 'M490,298 Q500,305 510,312', dur: '3s'   }, // PMB → DBN
 ]
 
 const stats = [
@@ -87,43 +52,12 @@ export default function NetworkMap() {
           <div className="hidden md:block md:col-span-2" style={{ position: 'relative' }}>
             <svg viewBox="0 0 800 480" style={{ width: '100%', height: 'auto', display: 'block' }}>
               <defs>
-                <radialGradient id="dotglow">
-                  <stop offset="0%" stopColor="#FB8B3D" />
-                  <stop offset="100%" stopColor="#DE4632" />
-                </radialGradient>
                 <filter id="pinshadow" x="-60%" y="-60%" width="220%" height="220%">
                   <feDropShadow dx="0" dy="1" stdDeviation="2.5" floodColor="rgba(0,0,0,0.45)" />
                 </filter>
               </defs>
 
               <image href="/assets/sa-map.jpg" x="0" y="0" width="800" height="480" preserveAspectRatio="xMidYMid meet" />
-
-              {/* hub routes */}
-              {hubRoutes.map(hr => (
-                <g key={hr.id}>
-                  <path d={hr.d} fill="none" stroke="rgba(255,255,255,0.55)" strokeWidth="1" />
-                  <circle r="3" fill="rgba(242,106,33,0.9)">
-                    <animateMotion dur={hr.dur} repeatCount="indefinite" path={hr.d} rotate="auto" />
-                  </circle>
-                </g>
-              ))}
-
-              {/* depot routes */}
-              {routes.map(rt => {
-                const active = rt.from === sel || rt.to === sel
-                return (
-                  <g key={rt.id}>
-                    <path d={rt.d} fill="none"
-                      stroke={active ? 'var(--ff-red)' : 'rgba(255,255,255,0.4)'}
-                      strokeWidth={active ? 2.5 : 1.5}
-                      strokeDasharray="7 7"
-                      style={{ animation: 'dashmove 1s linear infinite', transition: 'stroke .3s' }} />
-                    <circle r={active ? 6 : 4} fill="url(#dotglow)">
-                      <animateMotion dur={rt.id === 'r2' ? '4.2s' : rt.id === 'r3' ? '5s' : '3.6s'} repeatCount="indefinite" path={rt.d} rotate="auto" />
-                    </circle>
-                  </g>
-                )
-              })}
 
               {/* hub nodes */}
               {hubs.map(h => (
@@ -144,13 +78,9 @@ export default function NetworkMap() {
                 const on = key === sel
                 return (
                   <g key={key} style={{ cursor: 'pointer' }} onClick={() => setSel(key)} filter="url(#pinshadow)">
-                    {on
-                      ? <circle cx={c.x} cy={c.y} r="22" fill="none" stroke="var(--ff-red)" strokeWidth="2" opacity=".6"
-                          style={{ animation: 'pulsering 1.8s ease-out infinite' }} />
-                      : <circle cx={c.x} cy={c.y} r="17" fill="none" stroke="#fff" strokeWidth="1.5" opacity=".5" />
-                    }
-                    <circle cx={c.x} cy={c.y} r={on ? 13 : 9} fill={on ? 'var(--ff-red)' : 'var(--ff-steel)'} stroke="#fff" strokeWidth="3" />
-                    <text x={c.x} y={c.y - 22} textAnchor="middle"
+                    <circle cx={c.x} cy={c.y} r={on ? 17 : 13} fill="none" stroke={on ? 'var(--ff-red)' : '#fff'} strokeWidth="2" opacity={on ? 0.7 : 0.4} />
+                    <circle cx={c.x} cy={c.y} r={on ? 11 : 8} fill={on ? 'var(--ff-red)' : 'var(--ff-steel)'} stroke="#fff" strokeWidth="2.5" />
+                    <text x={c.x} y={c.y - 20} textAnchor="middle"
                       style={{
                         fontFamily: 'var(--font-cond)', fontWeight: 700, fontSize: 16,
                         fill: on ? '#1A1A1A' : '#2a2a2a',

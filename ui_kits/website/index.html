@@ -44,11 +44,13 @@
   <script type="text/babel" src="DHeader.jsx"></script>
   <script type="text/babel" src="DHero.jsx"></script>
   <script type="text/babel" src="DEvolution.jsx"></script>
+  <script type="text/babel" src="DSocialProof.jsx"></script>
   <script type="text/babel" src="DStats.jsx"></script>
   <script type="text/babel" src="DServices.jsx"></script>
   <script type="text/babel" src="DGallery.jsx"></script>
   <script type="text/babel" src="DFeatures.jsx"></script>
   <script type="text/babel" src="DMap.jsx"></script>
+  <script type="text/babel" src="DTestimonials.jsx"></script>
   <script type="text/babel" src="DFaq.jsx"></script>
   <script type="text/babel" src="DContact.jsx"></script>
   <script type="text/babel" src="DFooter.jsx"></script>
@@ -89,12 +91,14 @@
              style={{ height: '100vh', overflowY: 'auto', overflowX: 'hidden' }}>
           <DHeader onTrack={() => setTrack('FF-2840-117')} onQuote={() => setQuoteOpen(true)} />
           <DHero onQuote={() => setQuoteOpen(true)} onTrackSubmit={(wb) => setTrack(wb)} scrim={t.heroScrim} />
+          <DSocialProof />
           <DEvolution />
           <DStats />
           <DServices />
           <DGallery />
           <DFeatures />
           <DMap />
+          <DTestimonials />
           <DFaq />
           <DContact onQuote={() => setQuoteOpen(true)} />
           <DFooter />
