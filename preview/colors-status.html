@@ -1,0 +1,18 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-body);background:var(--ff-white);color:var(--fg-1);padding:22px;}
+.row{display:flex;gap:12px;flex-wrap:wrap}
+
+.sw{flex:1;min-width:120px}
+.pill{display:inline-flex;align-items:center;gap:7px;padding:7px 13px;border-radius:var(--r-pill);font-weight:600;font-size:13px;color:#fff}
+.dot{width:8px;height:8px;border-radius:50%;background:#fff}
+.lab{margin-top:8px;font-family:var(--font-cond);font-size:11px;color:var(--fg-3)}
+
+</style></head><body><div class="row">
+<div class="sw"><span class="pill" style="background:var(--ok)"><span class="dot"></span>Delivered</span><div class="lab">--ok · #2E8B57</div></div>
+<div class="sw"><span class="pill" style="background:var(--transit)"><span class="dot"></span>In Transit</span><div class="lab">--transit · #F26A21</div></div>
+<div class="sw"><span class="pill" style="background:var(--pending)"><span class="dot"></span>Awaiting Collection</span><div class="lab">--pending · #C9A227</div></div>
+<div class="sw"><span class="pill" style="background:var(--alert)"><span class="dot"></span>Exception</span><div class="lab">--alert · #C5341F</div></div>
+</div></body></html>

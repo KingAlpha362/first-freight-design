@@ -1,0 +1,22 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-body);background:var(--ff-white);color:var(--fg-1);padding:22px}
+.cap{font-family:var(--font-cond);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3)}
+.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+/* buttons */
+.btn{font-family:var(--font-body);font-weight:600;font-size:15px;border-radius:var(--r-sm);padding:11px 20px;border:1.5px solid transparent;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:all var(--dur) var(--ease)}
+.btn svg{width:18px;height:18px}
+.btn-primary{background:var(--ff-red);color:#fff;box-shadow:var(--sh-brand)}
+.btn-primary:hover{background:var(--ff-red-deep)}
+.btn-ghost{background:transparent;color:var(--ff-red);border-color:var(--ff-red)}
+.btn-ghost:hover{background:rgba(222,70,50,.08)}
+.btn-dark{background:var(--ff-ink);color:#fff}
+.btn-sm{font-size:13px;padding:7px 14px}
+</style><script src="https://unpkg.com/lucide@latest"></script></head><body><div class="cap" style="margin-bottom:12px">Buttons</div>
+<div class="row">
+<button class="btn btn-primary"><i data-lucide="package"></i>Get a Quote</button>
+<button class="btn btn-ghost"><i data-lucide="search"></i>Track Parcel</button>
+<button class="btn btn-dark">Contact Us</button>
+<button class="btn btn-primary btn-sm">Book Now</button>
+</div><script>lucide.createIcons()</script></body></html>

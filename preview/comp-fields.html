@@ -1,0 +1,29 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-body);background:var(--ff-white);color:var(--fg-1);padding:22px}
+.cap{font-family:var(--font-cond);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3)}
+.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+/* buttons */
+.btn{font-family:var(--font-body);font-weight:600;font-size:15px;border-radius:var(--r-sm);padding:11px 20px;border:1.5px solid transparent;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:all var(--dur) var(--ease)}
+.btn svg{width:18px;height:18px}
+.btn-primary{background:var(--ff-red);color:#fff;box-shadow:var(--sh-brand)}
+.btn-primary:hover{background:var(--ff-red-deep)}
+.btn-ghost{background:transparent;color:var(--ff-red);border-color:var(--ff-red)}
+.btn-ghost:hover{background:rgba(222,70,50,.08)}
+.btn-dark{background:var(--ff-ink);color:#fff}
+.btn-sm{font-size:13px;padding:7px 14px}
+
+.field{display:flex;flex-direction:column;gap:6px;max-width:330px}
+.lab{font-family:var(--font-cond);font-weight:700;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-2)}
+.inp{font-family:var(--font-body);font-size:15px;padding:11px 13px;border:1px solid var(--ff-line-2);border-radius:var(--r-sm);background:#fff;box-shadow:inset 0 1px 2px rgba(0,0,0,.04)}
+.inp:focus{outline:none;border-color:var(--ff-red);box-shadow:0 0 0 3px rgba(222,70,50,.15)}
+.track{display:flex;gap:0;max-width:380px}
+.track .inp{flex:1;border-radius:var(--r-sm) 0 0 var(--r-sm);border-right:0;font-family:var(--font-cond);letter-spacing:.06em}
+.track button{background:var(--ff-red);color:#fff;border:0;border-radius:0 var(--r-sm) var(--r-sm) 0;padding:0 18px;font-weight:600;cursor:pointer}
+</style><script src="https://unpkg.com/lucide@latest"></script></head><body><div class="cap" style="margin-bottom:12px">Inputs & tracking field</div>
+<div class="row" style="align-items:flex-start;gap:24px">
+<div class="field"><span class="lab">Email</span><input class="inp" value="ops@company.co.za"></div>
+<div class="field"><span class="lab">Waybill / Tracking no.</span>
+<div class="track"><input class="inp" value="FF-2840-117"><button>Track</button></div></div>
+</div><script>lucide.createIcons()</script></body></html>

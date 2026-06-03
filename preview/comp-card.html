@@ -1,0 +1,30 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-body);background:var(--ff-white);color:var(--fg-1);padding:22px}
+.cap{font-family:var(--font-cond);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3)}
+.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+/* buttons */
+.btn{font-family:var(--font-body);font-weight:600;font-size:15px;border-radius:var(--r-sm);padding:11px 20px;border:1.5px solid transparent;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:all var(--dur) var(--ease)}
+.btn svg{width:18px;height:18px}
+.btn-primary{background:var(--ff-red);color:#fff;box-shadow:var(--sh-brand)}
+.btn-primary:hover{background:var(--ff-red-deep)}
+.btn-ghost{background:transparent;color:var(--ff-red);border-color:var(--ff-red)}
+.btn-ghost:hover{background:rgba(222,70,50,.08)}
+.btn-dark{background:var(--ff-ink);color:#fff}
+.btn-sm{font-size:13px;padding:7px 14px}
+
+body{background:var(--ff-paper)}
+.card{background:#fff;border:1px solid var(--ff-line);border-radius:var(--r-md);box-shadow:var(--sh-sm);padding:20px;max-width:300px;transition:all var(--dur) var(--ease)}
+.card:hover{box-shadow:var(--sh-md);border-color:var(--ff-line-2);transform:translateY(-2px)}
+.ico{width:44px;height:44px;border-radius:var(--r-sm);background:rgba(222,70,50,.1);display:flex;align-items:center;justify-content:center;color:var(--ff-red);margin-bottom:14px}
+.ico svg{width:24px;height:24px}
+.t{font-weight:700;font-size:18px;margin-bottom:6px}
+.d{font-size:14px;color:var(--fg-2);line-height:1.55}
+.lab{font-family:var(--font-cond);font-weight:700;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ff-red);margin-bottom:10px}
+</style><script src="https://unpkg.com/lucide@latest"></script></head><body><div class="card">
+<div class="lab">Service</div>
+<div class="ico"><i data-lucide="truck"></i></div>
+<div class="t">Overnight Road Freight</div>
+<div class="d">Door-to-door parcel and pallet delivery across our national depot network.</div>
+</div><script>lucide.createIcons()</script></body></html>
