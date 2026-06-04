@@ -1,9 +1,10 @@
-import { FileText, Phone, Mail, MapPin, Clock } from 'lucide-react'
+import { FileText, Phone, Mail, MapPin, Clock, User } from 'lucide-react'
 
 const branches = [
   {
     city: 'Johannesburg',
     note: 'Head office & main hub',
+    manager: 'Conrad Boulle',
     phone: '011 387 7000',
     tel: '0113877000',
     email: 'sales@firstfreight.co.za',
@@ -12,6 +13,7 @@ const branches = [
   {
     city: 'Cape Town',
     note: 'Western Cape depot',
+    manager: 'Keiron O\'Donnell',
     phone: '021 036 0333',
     tel: '0210360333',
     email: 'sales@firstfreightcpt.co.za',
@@ -20,10 +22,11 @@ const branches = [
   {
     city: 'Durban',
     note: 'KZN regional depot',
+    manager: 'Shawn Mellor',
     phone: '031 569 1451',
     tel: '0315691451',
     email: 'sales@firstfreightkzn.co.za',
-    address: 'Unit 2, Riverside Industrial Park, 1 Jameson Drive, Avoca',
+    address: 'Unit 1 Grid Iron Park, 42 Riverhorse Road, Riverhorse Valley, 3630',
   },
 ]
 
@@ -73,6 +76,7 @@ export default function Contact({ onQuote }) {
             <div style={{ fontFamily: 'var(--font-cond)', fontWeight: 700, fontSize: 15, letterSpacing: '.1em', textTransform: 'uppercase', color: 'var(--ff-orange)', marginBottom: 4 }}>{b.city}</div>
             <div style={{ fontFamily: 'var(--font-body)', fontSize: 12.5, color: 'rgba(255,255,255,.45)', marginBottom: 16 }}>{b.note}</div>
             {[
+              [User, b.manager],
               [Phone, <a href={`tel:${b.tel}`} style={{ color: 'inherit', textDecoration: 'none' }}>{b.phone}</a>],
               [Mail, <a href={`mailto:${b.email}`} style={{ color: 'inherit', textDecoration: 'none' }}>{b.email}</a>],
               [MapPin, b.address],

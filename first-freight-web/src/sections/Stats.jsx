@@ -38,9 +38,9 @@ export default function Stats() {
     }}>
       <div className="grid grid-cols-2 md:grid-cols-4" style={{ maxWidth: 1100, margin: '0 auto' }}>
         {[
-          { value: 99.4, decimals: 1, suffix: '%', label: 'On-time delivery' },
+          { value: 100, suffix: '+', label: 'Vehicles (1–32 ton)' },
+          { value: 250, suffix: '+', label: 'Drivers & staff' },
           { value: 30, suffix: '+', label: 'Years on the road' },
-          { value: 4890, label: 'Parcels moved daily' },
           { value: 3, label: 'Metro depots' },
         ].map((s, i, arr) => (
           <div key={s.label} style={{ borderRight: i < arr.length - 1 ? '1px solid rgba(255,255,255,.18)' : 'none' }}>

@@ -1,12 +1,14 @@
-import { Radar, FileCheck2, Shield, Headset, Quote } from 'lucide-react'
+import { Radar, FileCheck2, Shield, Headset, Quote, ScanBarcode, BellRing } from 'lucide-react'
 
-const iconMap = { 'radar': Radar, 'file-check-2': FileCheck2, 'shield': Shield, 'headset': Headset }
+const iconMap = { 'radar': Radar, 'file-check-2': FileCheck2, 'shield': Shield, 'headset': Headset, 'scan-barcode': ScanBarcode, 'bell-ring': BellRing }
 
 const feats = [
   ['radar', 'Live tracking', 'Every shipment satellite-tracked, 24 hours a day.'],
   ['file-check-2', 'Proof of delivery', 'Signed, time-stamped confirmation on every drop.'],
   ['shield', 'Insured cargo', 'Goods-in-transit cover from collection to delivery.'],
   ['headset', 'Real people', 'A dedicated controller who knows your account.'],
+  ['scan-barcode', 'Barcode scanning', 'Every parcel scanned at each handover point for a complete chain-of-custody record.'],
+  ['bell-ring', 'SMS & email alerts', 'Automated collection, in-transit, and delivery notifications sent directly to your client.'],
 ]
 
 export default function Evolution() {
@@ -22,9 +24,9 @@ export default function Evolution() {
             A grown-up approach<br />to <span style={{ fontStyle: 'italic', color: 'var(--ff-red)' }}>logistics.</span>
           </h2>
           <p style={{ fontFamily: 'var(--font-body)', fontSize: 16.5, lineHeight: 1.65, color: 'var(--fg-2)', maxWidth: 480, margin: '0 0 36px' }}>
-            Thirty years of moving cargo have taught us that freight is a promise — to be where we
-            said, when we said. We pair a national fleet with the visibility and care of a courier
-            who treats your parcel like the only one on the truck.</p>
+            Since 1997, moving cargo has taught us that freight is a promise — to be where we
+            said, when we said. We pair a national fleet with the Parcel Perfect tracking system
+            and the care of a team that treats your parcel like the only one on the truck.</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {feats.map(([ic, t, d]) => {
               const Icon = iconMap[ic]

@@ -1,14 +1,31 @@
 import { useState } from 'react'
 import { X, Send, CheckCircle, Quote } from 'lucide-react'
 
+const fieldStyle = {
+  fontFamily: 'var(--font-body)', fontSize: 15, padding: '11px 13px', border: 0,
+  borderRadius: 'var(--r-sm)', background: 'rgba(255,255,255,.96)', color: 'var(--ff-ink)'
+}
+const labelStyle = {
+  fontFamily: 'var(--font-cond)', fontWeight: 700, fontSize: 11,
+  letterSpacing: '.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,.85)'
+}
+
 function QField({ label, ...props }) {
   return (
     <label style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-      <span style={{ fontFamily: 'var(--font-cond)', fontWeight: 700, fontSize: 11, letterSpacing: '.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,.85)' }}>{label}</span>
-      <input {...props} style={{
-        fontFamily: 'var(--font-body)', fontSize: 15, padding: '11px 13px', border: 0,
-        borderRadius: 'var(--r-sm)', background: 'rgba(255,255,255,.96)', color: 'var(--ff-ink)'
-      }} />
+      <span style={labelStyle}>{label}</span>
+      <input {...props} style={fieldStyle} />
+    </label>
+  )
+}
+
+function QSelect({ label, children, ...props }) {
+  return (
+    <label style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+      <span style={labelStyle}>{label}</span>
+      <select {...props} style={{ ...fieldStyle, cursor: 'pointer' }}>
+        {children}
+      </select>
     </label>
   )
 }
@@ -33,6 +50,7 @@ export function QuoteForm({ bare = false }) {
             </div>
           ) : (
             <form onSubmit={e => { e.preventDefault(); setSent(true) }} style={{ display: 'grid', gap: 14 }}>
+              <QField label="Company name" placeholder="e.g. Acme Retail (Pty) Ltd" />
               <div className="grid grid-cols-2 gap-3">
                 <QField label="From" placeholder="Johannesburg" />
                 <QField label="To" placeholder="Cape Town" />
@@ -41,6 +59,16 @@ export function QuoteForm({ bare = false }) {
                 <QField label="Parcels" placeholder="e.g. 3" />
                 <QField label="Weight (kg)" placeholder="e.g. 24" />
               </div>
+              <QSelect label="Service type">
+                <option value="">Select a service…</option>
+                <option>Economy Road Freight</option>
+                <option>Air Freight — Same Day Express</option>
+                <option>Air Freight — Overnight Express</option>
+                <option>Cross-Border (BLMS)</option>
+                <option>Full Truck Load</option>
+                <option>Warehousing & Distribution</option>
+              </QSelect>
+              <QField label="Commodity type" placeholder="e.g. Clothing, Pharmaceuticals, Retail stock" />
               <QField label="Contact email" type="email" placeholder="ops@company.co.za" />
               <button type="submit" style={{
                 marginTop: 6, background: 'var(--ff-graphite)', color: '#fff', border: 0,

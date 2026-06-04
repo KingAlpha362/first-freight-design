@@ -2,7 +2,7 @@ import { MapPin, Mail } from 'lucide-react'
 
 const branches = [
   ['Johannesburg', '011 387 7000', 'Head office & main hub', 'sales@firstfreight.co.za', '4 Struwig St, Witfield, Boksburg 1459'],
-  ['Durban', '031 569 1451', 'KZN regional depot', 'sales@firstfreightkzn.co.za', '1 Jameson Drive, Avoca'],
+  ['Durban', '031 569 1451', 'KZN regional depot', 'sales@firstfreightkzn.co.za', '42 Riverhorse Road, Riverhorse Valley, 3630'],
   ['Cape Town', '021 036 0333', 'Western Cape depot', 'sales@firstfreightcpt.co.za', '57 Mobile Road, Boquinar IA, 7490'],
 ]
 
