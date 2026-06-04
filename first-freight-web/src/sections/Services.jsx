@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { Truck, Package, Warehouse, Route, ArrowRight } from 'lucide-react'
+import { Truck, Package, Warehouse, Route, ArrowRight, Plane, Globe, HeartPulse } from 'lucide-react'
 
-const iconMap = { truck: Truck, package: Package, warehouse: Warehouse, route: Route }
+const iconMap = { truck: Truck, package: Package, warehouse: Warehouse, route: Route, plane: Plane, globe: Globe, 'heart-pulse': HeartPulse }
 
 function ServiceCard({ img, icon, num, title, body }) {
   const [h, setH] = useState(false)
@@ -53,10 +53,12 @@ function ServiceCard({ img, icon, num, title, body }) {
 }
 
 const items = [
-  ['/assets/national-fleet.jpg', 'truck', '01', 'Overnight Road Freight', 'Scheduled overnight line-haul of parcels and pallets between all three metro depots.'],
-  ['/assets/delivering.jpg', 'package', '02', 'Same-Day Courier', 'On-demand local pick-up and delivery within Johannesburg, Durban and Cape Town.'],
-  ['/assets/warehouse.jpg', 'warehouse', '03', 'Warehousing & Depot', 'Secure storage, handling and cross-docking at our depots across the country.'],
-  ['/assets/on-the-go.jpg', 'route', '04', 'Contract Distribution', 'Dedicated vehicles and routes for high-volume and time-critical accounts.'],
+  ['/assets/national-fleet.jpg', 'truck', '01', 'Overnight Road Freight', 'Scheduled overnight line-haul of parcels and pallets between all three metro depots — Johannesburg, Durban and Cape Town.'],
+  ['/assets/delivering.jpg', 'package', '02', 'Same-Day Courier', 'On-demand local pick-up and delivery within Johannesburg, Durban and Cape Town. Collected and delivered the same day.'],
+  ['/assets/on-the-go.jpg', 'plane', '03', 'Air Freight', 'Same-day express within 60 minutes for urgent air shipments, or overnight by 10:00 AM for next-day critical deliveries.'],
+  ['/assets/warehouse.jpg', 'warehouse', '04', 'Warehousing & Depot', 'Secure storage, handling and cross-docking at our depots. Includes inventory management and retail distribution support.'],
+  ['/assets/sa-map.jpg', 'globe', '05', 'Cross-Border Delivery', 'Road and air freight into Botswana, Lesotho, Mozambique and Eswatini (BLMS). Full documentation and border formalities handled.'],
+  ['/assets/driver-assistant.jpg', 'heart-pulse', '06', 'Medical & Emergency', 'Dedicated medical distribution routes and on-demand emergency delivery for healthcare providers and pharmaceutical clients.'],
 ]
 
 export default function Services() {
@@ -76,7 +78,7 @@ export default function Services() {
           <p style={{ fontFamily: 'var(--font-body)', fontSize: 15.5, lineHeight: 1.6, color: 'rgba(255,255,255,.65)', maxWidth: 360, margin: 0 }}>
             From a single envelope to a contracted national fleet — one partner, one point of contact.</p>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {items.map(([img, icon, num, title, body]) => (
             <ServiceCard key={title} img={img} icon={icon} num={num} title={title} body={body} />
           ))}

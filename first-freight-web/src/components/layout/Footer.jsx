@@ -1,17 +1,19 @@
-import { MapPin } from 'lucide-react'
+import { MapPin, Mail } from 'lucide-react'
 
 const branches = [
-  ['Johannesburg', '011 387 7000', 'Head office & main hub'],
-  ['Durban', '031 569 1451', 'KZN regional depot'],
-  ['Cape Town', '021 036 0333', 'Western Cape depot'],
+  ['Johannesburg', '011 387 7000', 'Head office & main hub', 'sales@firstfreight.co.za', '4 Struwig St, Witfield, Boksburg 1459'],
+  ['Durban', '031 569 1451', 'KZN regional depot', 'sales@firstfreightkzn.co.za', '1 Jameson Drive, Avoca'],
+  ['Cape Town', '021 036 0333', 'Western Cape depot', 'sales@firstfreightcpt.co.za', '57 Mobile Road, Boquinar IA, 7490'],
 ]
 
 const cols = [
   ['Services', [
     { label: 'Overnight Road Freight', href: '#services' },
     { label: 'Same-Day Courier',       href: '#services' },
+    { label: 'Air Freight',            href: '#services' },
+    { label: 'Cross-Border Delivery',  href: '#services' },
     { label: 'Warehousing',            href: '#services' },
-    { label: 'Contract Distribution',  href: '#services' },
+    { label: 'Medical & Emergency',    href: '#services' },
   ]],
   ['Company', [
     { label: 'About',       href: '#features' },
@@ -49,13 +51,18 @@ export default function Footer() {
 
           <div>
             <div style={{ fontFamily: 'var(--font-cond)', fontWeight: 700, fontSize: 12, letterSpacing: '.14em', textTransform: 'uppercase', color: 'var(--ff-orange)', marginBottom: 14 }}>Branches</div>
-            <div style={{ display: 'grid', gap: 12 }}>
-              {branches.map(([city, phone]) => (
+            <div style={{ display: 'grid', gap: 14 }}>
+              {branches.map(([city, phone, , email, address]) => (
                 <div key={city} style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
                   <MapPin size={16} style={{ color: 'var(--ff-red)', marginTop: 3, flex: 'none' }} />
                   <div>
                     <div style={{ fontFamily: 'var(--font-cond)', fontWeight: 700, fontSize: 13.5, letterSpacing: '.06em', textTransform: 'uppercase' }}>{city}</div>
                     <div style={{ fontFamily: 'var(--font-body)', fontSize: 13, color: 'rgba(255,255,255,.55)' }}>{phone}</div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 5, marginTop: 2 }}>
+                      <Mail size={11} style={{ color: 'rgba(255,255,255,.35)', flexShrink: 0 }} />
+                      <a href={`mailto:${email}`} style={{ fontFamily: 'var(--font-body)', fontSize: 12, color: 'rgba(255,255,255,.38)', textDecoration: 'none' }}>{email}</a>
+                    </div>
+                    <div style={{ fontFamily: 'var(--font-body)', fontSize: 11.5, color: 'rgba(255,255,255,.28)', marginTop: 1 }}>{address}</div>
                   </div>
                 </div>
               ))}
