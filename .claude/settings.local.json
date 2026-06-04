@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "PowerShell([Environment]::SetEnvironmentVariable\\(\"Path\", [Environment]::GetEnvironmentVariable\\(\"Path\", \"User\"\\) + \";C:\\\\Users\\\\AlphaTapfuma\\\\.local\\\\bin\", \"User\"\\))"
+      "PowerShell([Environment]::SetEnvironmentVariable\\(\"Path\", [Environment]::GetEnvironmentVariable\\(\"Path\", \"User\"\\) + \";C:\\\\Users\\\\AlphaTapfuma\\\\.local\\\\bin\", \"User\"\\))",
+      "WebFetch(domain:firstfreight.co.za)"
     ]
   }
 }
