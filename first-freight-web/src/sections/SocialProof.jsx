@@ -27,7 +27,11 @@ export default function SocialProof() {
         Delivering for South Africa's leading brands
       </p>
 
-      <div style={{ overflow: 'hidden' }}>
+      <div style={{
+        overflow: 'hidden',
+        maskImage: 'linear-gradient(to right, transparent, black 8%, black 92%, transparent)',
+        WebkitMaskImage: 'linear-gradient(to right, transparent, black 8%, black 92%, transparent)',
+      }}>
         <div style={{
           display: 'flex',
           width: 'max-content',

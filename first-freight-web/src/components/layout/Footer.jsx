@@ -1,5 +1,30 @@
 import { MapPin, Mail } from 'lucide-react'
 
+/* Brand glyphs (not in this lucide build) — single-colour, inherit currentColor */
+const IgIcon = ({ size = 17 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+    <rect x="2" y="2" width="20" height="20" rx="5.5" />
+    <circle cx="12" cy="12" r="4" />
+    <circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" stroke="none" />
+  </svg>
+)
+const FbIcon = ({ size = 17 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+    <path d="M13.5 21v-7h2.4l.36-2.79H13.5V9.43c0-.81.22-1.36 1.38-1.36h1.48V5.57A19.7 19.7 0 0 0 14.18 5.5c-2.13 0-3.59 1.3-3.59 3.69v2.02H8.2V14h2.39v7h2.91z" />
+  </svg>
+)
+const GoogleIcon = ({ size = 17 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+    <path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z" />
+  </svg>
+)
+
+const socials = [
+  { label: 'Instagram',          href: 'https://www.instagram.com/firstfreightcouriers/', Icon: IgIcon },
+  { label: 'Facebook',           href: 'https://www.facebook.com/FirstFreightCouriersSA/', Icon: FbIcon },
+  { label: 'Find us on Google',  href: 'https://www.google.com/maps/search/?api=1&query=first+freight+courier+jhb', Icon: GoogleIcon },
+]
+
 const branches = [
   ['Johannesburg', '011 387 7000', 'Head office & main hub', 'sales@firstfreight.co.za', '4 Struwig St, Witfield, Boksburg 1459'],
   ['Durban', '031 569 1451', 'KZN regional depot', 'sales@firstfreightkzn.co.za', '42 Riverhorse Road, Riverhorse Valley, 3630'],
@@ -34,6 +59,20 @@ export default function Footer() {
               National courier &amp; freight since 1996. Your parcel, our priority.</p>
             <div style={{ fontFamily: 'var(--font-cond)', fontSize: 12, letterSpacing: '.05em', color: 'rgba(255,255,255,.38)', marginTop: 16 }}>
               Reg. No. 1996/005172/07 · www.firstfreight.co.za</div>
+            <div style={{ display: 'flex', gap: 10, marginTop: 20 }}>
+              {socials.map(({ label, href, Icon }) => (
+                <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label} style={{
+                  width: 38, height: 38, borderRadius: '50%', border: '1px solid rgba(255,255,255,.18)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'rgba(255,255,255,.7)',
+                  transition: 'all 180ms var(--ease)'
+                }}
+                  onMouseEnter={e => { e.currentTarget.style.color = '#fff'; e.currentTarget.style.borderColor = 'var(--ff-orange)'; e.currentTarget.style.background = 'rgba(242,106,33,.12)' }}
+                  onMouseLeave={e => { e.currentTarget.style.color = 'rgba(255,255,255,.7)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,.18)'; e.currentTarget.style.background = 'transparent' }}
+                >
+                  <Icon size={17} />
+                </a>
+              ))}
+            </div>
           </div>
 
           {cols.map(([heading, items]) => (

@@ -33,7 +33,7 @@ const branches = [
 export default function Contact({ onQuote }) {
   return (
     <section id="contact" style={{ position: 'relative', overflow: 'hidden', padding: '110px 30px 0' }}>
-      <img src="/assets/national-fleet.jpg" alt="" style={{
+      <img src="/assets/national-fleet.jpg" alt="" className="ff-graded" style={{
         position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 30%'
       }} />
       <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg, rgba(14,12,11,.95) 0%, rgba(14,12,11,.78) 50%, rgba(184,52,31,.6) 100%)' }} />

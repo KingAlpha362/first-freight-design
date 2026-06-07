@@ -23,12 +23,12 @@ export default function App() {
   return (
     <>
       <Header onQuote={openQuote} onTrack={() => setTrackWaybill('FF-2840-117')} />
-      <main style={{ paddingTop: 78 }}>
+      <main className="ff-main">
         <Hero onQuote={openQuote} onTrackSubmit={wb => setTrackWaybill(wb || 'FF-2840-117')} />
         <SocialProof />
         <Evolution />
         <Stats />
-        <Services />
+        <Services onQuote={openQuote} />
         <Gallery />
         <Features />
         <NetworkMap />

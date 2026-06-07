@@ -1,11 +1,12 @@
 import { Check } from 'lucide-react'
+import Reveal from '../components/shared/Reveal'
 
-function FeatureRow({ img, stat, statLabel, eyebrow, title, body, points, flip }) {
+function FeatureRow({ img, pos = 'center 50%', stat, statLabel, eyebrow, title, body, points, flip }) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center mb-16">
       {/* On mobile: image always first. On desktop: honour flip. */}
       <div className={`relative ${flip ? 'md:order-1' : 'md:order-2'}`}>
-        <img src={img} alt="" style={{ width: '100%', height: 340, objectFit: 'cover', borderRadius: 'var(--r-lg)', boxShadow: 'var(--sh-md)', display: 'block' }} />
+        <img src={img} alt="" className="ff-graded" style={{ width: '100%', height: 340, objectFit: 'cover', objectPosition: pos, borderRadius: 'var(--r-lg)', boxShadow: 'var(--sh-md)', display: 'block' }} />
         <div style={{
           position: 'absolute', [flip ? 'right' : 'left']: -18, bottom: -18,
           background: 'var(--ff-red)', color: '#fff', borderRadius: 'var(--r-md)', padding: '16px 22px',
@@ -39,16 +40,16 @@ function FeatureRow({ img, stat, statLabel, eyebrow, title, body, points, flip }
 }
 
 const rows = [
-  { img: '/assets/national-fleet.jpg', stat: '40+', statLabel: 'Daily routes', eyebrow: 'Network',
+  { img: '/assets/fleet-aerial.jpg', pos: 'center 42%', stat: '40+', statLabel: 'Daily routes', eyebrow: 'Network',
     title: 'National linehaul network', body: 'Scheduled overnight line-haul connects our Johannesburg, Durban and Cape Town depots so your freight keeps moving while the country sleeps.',
     points: ['Nightly trunk routes between metros', 'Regional feeder runs to outlying towns'], flip: false },
-  { img: '/assets/fleet-truck.jpg', stat: '180+', statLabel: 'Vehicles', eyebrow: 'Fleet',
+  { img: '/assets/fleet-bakkies-lineup.jpg', pos: 'center 58%', stat: '180+', statLabel: 'Vehicles', eyebrow: 'Fleet',
     title: 'Managed fleet excellence', body: 'Trucks, bakkies and vans maintained to a tight standard and matched to the job — from a single envelope to a full pallet load.',
     points: ['Right-sized vehicle for every consignment', 'Routine maintenance & safety checks'], flip: true },
-  { img: '/assets/depot-packing.jpg', stat: '99.4%', statLabel: 'On-time', eyebrow: 'Technology',
+  { img: '/assets/depot-packing.jpg', pos: 'center 38%', stat: '99.4%', statLabel: 'On-time', eyebrow: 'Technology',
     title: 'Technology-driven visibility', body: 'Every shipment is scanned, tracked and confirmed — so you and your customer always know exactly where a parcel is.',
     points: ['24-hour satellite tracking', 'Signed, time-stamped proof of delivery'], flip: false },
-  { img: '/assets/warehouse.jpg', stat: '24/7', statLabel: 'Depot ops', eyebrow: 'Warehousing',
+  { img: '/assets/warehouse.jpg', pos: 'center 50%', stat: '24/7', statLabel: 'Depot ops', eyebrow: 'Warehousing',
     title: 'Industrial warehousing', body: 'Secure storage, handling and cross-docking at our depots — an extension of your supply chain, not just a stop along the way.',
     points: ['Inbound, storage & outbound handling', 'Cross-dock for fast turnaround'], flip: true },
 ]
@@ -63,7 +64,7 @@ export default function Features() {
             Precision logistics.<br /><span style={{ fontStyle: 'italic', color: 'var(--ff-red)' }}>At scale.</span>
           </h2>
         </div>
-        {rows.map(r => <FeatureRow key={r.title} {...r} />)}
+        {rows.map(r => <Reveal key={r.title}><FeatureRow {...r} /></Reveal>)}
       </div>
     </section>
   )

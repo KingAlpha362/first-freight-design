@@ -79,6 +79,10 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: 78px;
 }
+/* Header gains a 38px utility strip on desktop → offset anchors + main padding */
+@media (min-width: 768px) { html { scroll-padding-top: 116px; } }
+.ff-main { padding-top: 78px; }
+@media (min-width: 768px) { .ff-main { padding-top: 116px; } }
 
 html, body { margin: 0; padding: 0; }
 body {
@@ -89,6 +93,10 @@ body {
 }
 
 a { color: inherit; text-decoration: none; }
+
+/* Frosted input on dark/photographic backgrounds */
+.ff-input-light { color: rgba(255,255,255,.96); }
+.ff-input-light::placeholder { color: rgba(255,255,255,.6); }
 
 /* Global utility classes (shared across components) */
 .ff-eyebrow {
@@ -153,6 +161,44 @@ a { color: inherit; text-decoration: none; }
 .ff-body   { font-family: var(--font-body); font-weight: 400; font-size: var(--t-body); line-height: var(--lh-body); color: var(--fg-2); }
 .ff-label  { font-family: var(--font-cond); font-weight: 700; font-size: var(--t-xs); letter-spacing: var(--ls-label); text-transform: uppercase; color: var(--ff-red); }
 .ff-code   { font-family: var(--font-cond); font-weight: 600; letter-spacing: .06em; color: var(--fg-1); }
+
+/* ============================================================
+   Premium image system — "Warm Steel" (Phase 1 foundation)
+   ============================================================ */
+
+/* Unifying color grade: warm-graphite key applied to every photo so
+   shots from different shoots read as one coherent brand documentary. */
+.ff-graded { filter: saturate(.9) contrast(1.05) brightness(.97) sepia(.06); }
+/* Near-mono variant for "connective" frames — lets the eye land on the key shots */
+.ff-desat  { filter: grayscale(.82) saturate(.5) contrast(1.06) brightness(.98) sepia(.1); }
+
+/* Standard atmospheric layers (compose over a graded image) */
+.ff-vignette {
+  position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(120% 120% at 50% 38%, transparent 58%, rgba(0,0,0,.30));
+}
+.ff-grain {
+  position: absolute; inset: 0; pointer-events: none; opacity: .05; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Scroll reveal — fade + gentle rise, fired once via IntersectionObserver */
+.ff-reveal {
+  opacity: 0; transform: translateY(14px);
+  transition: opacity 480ms var(--ease), transform 480ms var(--ease);
+  will-change: opacity, transform;
+}
+.ff-reveal.is-in { opacity: 1; transform: none; }
+
+/* One-shot cinematic push-in for hero/CTA backgrounds (no scroll parallax) */
+@keyframes ffKenburns { from { transform: scale(1); } to { transform: scale(1.06); } }
+.ff-kenburns { animation: ffKenburns 16s var(--ease) forwards; transform-origin: 60% 45%; }
+
+/* Respect reduced-motion: keep content visible, drop the movement */
+@media (prefers-reduced-motion: reduce) {
+  .ff-reveal { opacity: 1; transform: none; transition: none; }
+  .ff-kenburns { animation: none; }
+}
 
 /* Keyframes */
 @keyframes ffFade      { from { opacity: 0; } to { opacity: 1; } }

@@ -53,7 +53,7 @@ export default function Evolution() {
         </div>
 
         <div style={{ position: 'relative' }}>
-          <img src="/assets/driver-assistant.jpg" alt="First Freight courier team" style={{
+          <img src="/assets/driver-assistant.jpg" alt="First Freight courier team" className="ff-graded" style={{
             width: '100%', height: 480, objectFit: 'cover', borderRadius: 'var(--r-lg)', display: 'block' }} />
           <div style={{
             position: 'absolute', inset: 0, borderRadius: 'var(--r-lg)',
