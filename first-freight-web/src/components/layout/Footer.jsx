@@ -116,6 +116,25 @@ export default function Footer() {
             <a href="#" style={{ color: 'inherit', textDecoration: 'none' }}>Terms</a>
           </span>
         </div>
+
+        <div style={{
+          textAlign: 'center', paddingTop: 20, marginTop: 20,
+          borderTop: '1px solid rgba(255,255,255,.08)',
+          fontFamily: 'var(--font-cond)', fontWeight: 600, fontSize: 12,
+          letterSpacing: '.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,.4)'
+        }}>
+          Designed by{' '}
+          <a
+            href="https://www.linkedin.com/in/alphatapfuma/"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: 'rgba(255,255,255,.7)', textDecoration: 'none', transition: 'color 180ms var(--ease)' }}
+            onMouseEnter={e => { e.currentTarget.style.color = 'var(--ff-orange)' }}
+            onMouseLeave={e => { e.currentTarget.style.color = 'rgba(255,255,255,.7)' }}
+          >
+            Alpha Tapfuma
+          </a>
+        </div>
       </div>
     </footer>
   )

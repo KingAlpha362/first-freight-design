@@ -39,7 +39,7 @@ export default function NetworkMap() {
   const city = cities[sel]
 
   return (
-    <section id="network" style={{ background: 'var(--ff-white)', color: 'var(--fg-1)', padding: '100px 30px', overflow: 'hidden' }}>
+    <section id="network" className="ff-section" style={{ background: 'var(--ff-white)', color: 'var(--fg-1)', overflow: 'hidden' }}>
       <div style={{ maxWidth: 1180, margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: 14 }}>
           <span className="ff-eyebrow" style={{ color: 'var(--ff-red)' }}>The network</span>
@@ -120,7 +120,7 @@ export default function NetworkMap() {
             <div className="grid grid-cols-2 gap-3">
               {stats.map(([n, l]) => (
                 <div key={l} style={{ background: 'var(--ff-paper)', border: '1px solid var(--ff-line)', borderRadius: 'var(--r-md)', padding: '16px 18px' }}>
-                  <div style={{ fontFamily: 'var(--font-display)', fontStyle: 'italic', fontWeight: 700, fontSize: 28, color: 'var(--ff-red)', lineHeight: 1 }}>{n}</div>
+                  <div className="ff-figures" style={{ fontFamily: 'var(--font-display)', fontStyle: 'italic', fontWeight: 700, fontSize: 28, color: 'var(--ff-red)', lineHeight: 1 }}>{n}</div>
                   <div style={{ fontFamily: 'var(--font-cond)', fontWeight: 600, fontSize: 11.5, letterSpacing: '.08em', textTransform: 'uppercase', color: 'var(--fg-2)', marginTop: 6 }}>{l}</div>
                 </div>
               ))}

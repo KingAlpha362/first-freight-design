@@ -6,7 +6,7 @@ function StatItem({ value, decimals = 0, suffix = '', prefix = '', label, run })
   const num = v.toLocaleString('en-ZA', { minimumFractionDigits: decimals, maximumFractionDigits: decimals })
   return (
     <div style={{ textAlign: 'center', padding: '8px 16px' }}>
-      <div style={{
+      <div className="ff-figures" style={{
         fontFamily: 'var(--font-display)', fontStyle: 'italic', fontWeight: 700,
         fontSize: 'clamp(2.4rem,4vw,3.4rem)', color: '#fff', lineHeight: 1
       }}>

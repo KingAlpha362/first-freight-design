@@ -1,164 +1,125 @@
-import { useState } from 'react'
-import { Truck, Package, Warehouse, ArrowRight, Plane, Globe, HeartPulse } from 'lucide-react'
+import { motion, useReducedMotion } from 'motion/react'
+import { Truck, Package, Warehouse, Plane, Globe, HeartPulse, ArrowRight } from 'lucide-react'
 
-const iconMap = { truck: Truck, package: Package, warehouse: Warehouse, plane: Plane, globe: Globe, 'heart-pulse': HeartPulse }
+const EASE_OUT = [0.23, 1, 0.32, 1] // strong ease-out for entrances (animations.dev)
 
-/* glass category pill */
-function Tag({ children, style }) {
+/* scroll-in stagger + per-tile pop */
+const container = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.06, delayChildren: 0.04 } },
+}
+const tilePop = {
+  hidden: { opacity: 0, y: 24, scale: 0.92 },
+  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.5, ease: EASE_OUT } },
+}
+// Reduced motion: keep the fade, drop the position/scale movement
+const tilePopReduced = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.3, ease: EASE_OUT } },
+}
+
+const services = [
+  { id: 'road', Icon: Truck, tag: 'Freight', flagship: true,
+    title: 'Overnight Road Freight', cta: 'Get a freight quote',
+    body: 'Scheduled overnight line-haul between Johannesburg, Durban and Cape Town — loaded by night, delivered by morning, tracked the whole way.',
+    src: '/assets/national-fleet.jpg', alt: 'First Freight line-haul trucks on the national road network',
+    area: { gridColumn: '1 / 7', gridRow: '1 / 3' }, mob: { gridColumn: '1 / 3', height: 250 } },
+  { id: 'air', Icon: Plane, tag: 'Air', title: 'Air Freight',
+    src: '/assets/aircraft-overhead.jpg', alt: 'Cargo aircraft overhead',
+    area: { gridColumn: '7 / 10', gridRow: '1 / 2' }, mob: { height: 170 } },
+  { id: 'whse', Icon: Warehouse, tag: 'Warehousing', title: 'Warehousing & Depot',
+    src: '/assets/warehouse-loading.jpg', alt: 'Warehouse floor with parcels being loaded',
+    area: { gridColumn: '10 / 13', gridRow: '1 / 2' }, mob: { height: 170 } },
+  { id: 'same', Icon: Package, tag: 'Express', title: 'Same-Day Courier',
+    src: '/assets/delivering.jpg', alt: 'First Freight courier delivering a parcel',
+    area: { gridColumn: '7 / 13', gridRow: '2 / 3' }, mob: { gridColumn: '1 / 3', height: 185 } },
+  { id: 'xbdr', Icon: Globe, tag: 'Cross-Border', title: 'Cross-Border Delivery',
+    src: '/assets/sa-map.jpg', alt: 'Map of southern Africa showing cross-border routes',
+    area: { gridColumn: '1 / 7', gridRow: '3 / 4' }, mob: { height: 170 } },
+  { id: 'med', Icon: HeartPulse, tag: 'Healthcare', title: 'Medical & Emergency',
+    src: '/assets/staff-parcel-handover.jpg', alt: 'First Freight staff handing over a parcel',
+    area: { gridColumn: '7 / 13', gridRow: '3 / 4' }, mob: { height: 170 } },
+]
+
+function Pill({ children, accent }) {
   return (
     <span style={{
-      display: 'inline-flex', alignItems: 'center',
-      padding: '5px 11px', borderRadius: 'var(--r-pill)',
-      background: 'rgba(255,255,255,.12)', backdropFilter: 'blur(8px)',
-      WebkitBackdropFilter: 'blur(8px)', border: '1px solid rgba(255,255,255,.20)',
-      fontFamily: 'var(--font-cond)', fontWeight: 700, fontSize: 11,
-      letterSpacing: '.1em', textTransform: 'uppercase', color: '#fff', ...style
+      display: 'inline-flex', alignItems: 'center', padding: '5px 11px', borderRadius: 'var(--r-pill)',
+      background: accent ? 'rgba(222,70,50,.92)' : 'rgba(255,255,255,.12)',
+      backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)',
+      border: `1px solid ${accent ? 'rgba(255,255,255,.25)' : 'rgba(255,255,255,.20)'}`,
+      fontFamily: 'var(--font-cond)', fontWeight: 700, fontSize: 11, letterSpacing: '.1em',
+      textTransform: 'uppercase', color: '#fff', whiteSpace: 'nowrap',
     }}>{children}</span>
   )
 }
 
-/* surface treatment shared by every card */
-const cardBase = (h) => ({
-  position: 'relative', overflow: 'hidden', borderRadius: 'var(--r-lg)',
-  background: 'linear-gradient(160deg, rgba(255,255,255,.075), rgba(255,255,255,.025))',
-  border: `1px solid ${h ? 'rgba(222,70,50,.55)' : 'rgba(255,255,255,.10)'}`,
-  boxShadow: h ? '0 18px 40px rgba(0,0,0,.45)' : '0 1px 4px rgba(0,0,0,.25)',
-  transform: h ? 'translateY(-6px)' : 'none',
-  transition: 'transform 220ms var(--ease), box-shadow 220ms var(--ease), border-color 220ms var(--ease)',
-})
+function Tile({ data, onQuote, mobile }) {
+  const Icon = data.Icon
+  const full = data.flagship
+  const reduce = useReducedMotion()
+  const placement = mobile ? data.mob : data.area
+  const MotionComp = full ? motion.div : motion.a
+  const linkProps = full ? {} : { href: '#contact', 'aria-label': data.title }
 
-const zoom = (h) => ({
-  width: '100%', height: '100%', objectFit: 'cover', display: 'block',
-  transform: h ? 'scale(1.06)' : 'scale(1)', transition: 'transform 560ms var(--ease)'
-})
-
-/* ---------------- Featured (flagship) card ---------------- */
-function FeaturedCard({ img, icon, tag, title, body, cta, onClick }) {
-  const [h, setH] = useState(false)
-  const Icon = iconMap[icon]
   return (
-    <div onMouseEnter={() => setH(true)} onMouseLeave={() => setH(false)}
-      style={{ ...cardBase(h), height: '100%', minHeight: 440, display: 'flex', flexDirection: 'column' }}>
-      <img src={img} alt="" className="ff-graded" style={{ position: 'absolute', inset: 0, ...zoom(h) }} />
-      <div style={{ position: 'absolute', inset: 0, background:
-        'linear-gradient(0deg, rgba(18,16,15,.93) 8%, rgba(18,16,15,.45) 46%, rgba(18,16,15,.15) 100%)' }} />
+    <MotionComp
+      variants={reduce ? tilePopReduced : tilePop}
+      {...linkProps}
+      className="group"
+      style={{
+        position: 'relative', overflow: 'hidden', display: 'block', textDecoration: 'none',
+        borderRadius: 'var(--r-lg)', border: '1px solid rgba(255,255,255,.10)',
+        background: 'var(--ff-graphite)', minWidth: 0, ...placement,
+      }}
+    >
+      <img src={data.src} alt={data.alt || ''}
+        className="ff-graded transition-transform duration-500 ease-ff group-hover:scale-105"
+        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+      <div style={{ position: 'absolute', inset: 0,
+        background: 'linear-gradient(0deg, rgba(18,16,15,.93) 6%, rgba(18,16,15,.42) 50%, rgba(18,16,15,.1) 100%)' }} />
 
-      <div style={{ position: 'absolute', top: 18, left: 18, display: 'flex', gap: 8 }}>
-        <Tag style={{ background: 'rgba(222,70,50,.92)', border: '1px solid rgba(255,255,255,.25)' }}>Flagship</Tag>
-        <Tag>{tag}</Tag>
+      <div style={{ position: 'absolute', top: 16, left: 16, display: 'flex', gap: 8 }}>
+        {full && <Pill accent>Flagship</Pill>}
+        <Pill>{data.tag}</Pill>
       </div>
-      <div style={{
-        position: 'absolute', top: 16, right: 18, width: 46, height: 46, borderRadius: 'var(--r-md)',
-        background: 'rgba(255,255,255,.10)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)',
-        border: '1px solid rgba(255,255,255,.20)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff'
-      }}><Icon size={22} /></div>
+      <span style={{
+        position: 'absolute', top: 14, right: 16, width: 40, height: 40, borderRadius: 'var(--r-md)',
+        display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: '#fff',
+        background: full ? 'rgba(222,70,50,.92)' : 'rgba(255,255,255,.12)', border: '1px solid rgba(255,255,255,.20)',
+        backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)',
+      }}><Icon size={19} /></span>
 
-      <div style={{ position: 'relative', marginTop: 'auto', padding: '0 30px 30px' }}>
-        <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 'clamp(1.7rem,2.6vw,2.15rem)',
-          lineHeight: 1.05, color: '#fff', margin: '0 0 12px', maxWidth: 460 }}>{title}</h3>
-        <p style={{ fontFamily: 'var(--font-body)', fontSize: 15.5, lineHeight: 1.6, color: 'rgba(255,255,255,.82)',
-          margin: '0 0 22px', maxWidth: 440 }}>{body}</p>
-        <button onClick={onClick} className="ff-cta-red" style={{ padding: '13px 24px', display: 'inline-flex', alignItems: 'center', gap: 9 }}>
-          {cta} <ArrowRight size={16} style={{ transform: h ? 'translateX(3px)' : 'none', transition: 'transform 220ms var(--ease)' }} />
-        </button>
+      <div style={{ position: 'absolute', insetInline: 0, bottom: 0, padding: full ? '0 28px 26px' : '0 18px 16px', maxWidth: full ? 460 : 'none' }}>
+        <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700,
+          fontSize: full ? 'clamp(1.6rem,2.4vw,2.1rem)' : 19, lineHeight: 1.08, color: '#fff', margin: 0 }}>
+          {data.title}
+        </h3>
+        {full && (
+          <>
+            <p style={{ fontFamily: 'var(--font-body)', fontSize: 14.5, lineHeight: 1.55, color: 'rgba(255,255,255,.82)', margin: '10px 0 16px' }}>{data.body}</p>
+            <button type="button" onClick={onQuote} className="ff-cta-red"
+              style={{ padding: '12px 22px', display: 'inline-flex', alignItems: 'center', gap: 9 }}>
+              {data.cta} <ArrowRight size={16} />
+            </button>
+          </>
+        )}
+        {!full && (
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 7, marginTop: 6, fontFamily: 'var(--font-cond)',
+            fontWeight: 700, fontSize: 11.5, letterSpacing: '.08em', textTransform: 'uppercase',
+            color: 'rgba(255,255,255,.62)', transition: 'color 180ms var(--ease)' }}
+            className="group-hover:!text-[var(--ff-orange)]">
+            Learn more <ArrowRight size={14} />
+          </span>
+        )}
       </div>
-    </div>
+    </MotionComp>
   )
-}
-
-/* ---------------- Supporting card (image-top, compact) ---------------- */
-function ServiceCard({ img, icon, tag, title, body, cta }) {
-  const [h, setH] = useState(false)
-  const Icon = iconMap[icon]
-  return (
-    <a href="#contact" onMouseEnter={() => setH(true)} onMouseLeave={() => setH(false)}
-      style={{ ...cardBase(h), display: 'flex', flexDirection: 'column', textDecoration: 'none' }}>
-      <div style={{ position: 'relative', height: 132, overflow: 'hidden' }}>
-        <img src={img} alt="" className="ff-graded" style={zoom(h)} />
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(0deg, rgba(43,42,40,.92), transparent 62%)' }} />
-        <Tag style={{ position: 'absolute', top: 12, left: 12 }}>{tag}</Tag>
-        <div style={{
-          position: 'absolute', right: 12, bottom: 12, width: 34, height: 34, borderRadius: 'var(--r-sm)',
-          background: 'rgba(222,70,50,.92)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center'
-        }}><Icon size={17} /></div>
-      </div>
-      <div style={{ padding: '16px 18px 18px', display: 'flex', flexDirection: 'column', flex: 1 }}>
-        <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 19, color: '#fff', margin: '0 0 7px' }}>{title}</h3>
-        <p style={{ fontFamily: 'var(--font-body)', fontSize: 13.5, lineHeight: 1.55, color: 'rgba(255,255,255,.74)', margin: '0 0 16px',
-          display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{body}</p>
-        <span style={{
-          marginTop: 'auto', display: 'inline-flex', alignItems: 'center', gap: 8, fontFamily: 'var(--font-cond)',
-          fontWeight: 700, fontSize: 12, letterSpacing: '.08em', textTransform: 'uppercase',
-          color: h ? 'var(--ff-orange)' : 'rgba(255,255,255,.55)', transition: 'color 180ms var(--ease)'
-        }}>
-          {cta} <ArrowRight size={15} style={{ transform: h ? 'translateX(3px)' : 'none', transition: 'transform 220ms var(--ease)' }} />
-        </span>
-      </div>
-    </a>
-  )
-}
-
-/* ---------------- Wide closer card (image left, copy right) ---------------- */
-function WideCard({ img, icon, tag, title, body, cta }) {
-  const [h, setH] = useState(false)
-  const Icon = iconMap[icon]
-  return (
-    <a href="#contact" onMouseEnter={() => setH(true)} onMouseLeave={() => setH(false)}
-      className="sm:col-span-2"
-      style={{ ...cardBase(h), display: 'flex', textDecoration: 'none', minHeight: 150 }}>
-      <div style={{ position: 'relative', width: '42%', flexShrink: 0, overflow: 'hidden' }}>
-        <img src={img} alt="" className="ff-graded" style={{ position: 'absolute', inset: 0, ...zoom(h) }} />
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg, transparent 55%, rgba(43,42,40,.9))' }} />
-        <Tag style={{ position: 'absolute', top: 12, left: 12 }}>{tag}</Tag>
-      </div>
-      <div style={{ padding: '18px 20px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-        <span style={{ display: 'flex', alignItems: 'center', gap: 9, marginBottom: 8, color: 'var(--ff-orange)' }}>
-          <Icon size={18} />
-        </span>
-        <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 19, color: '#fff', margin: '0 0 6px' }}>{title}</h3>
-        <p style={{ fontFamily: 'var(--font-body)', fontSize: 13.5, lineHeight: 1.55, color: 'rgba(255,255,255,.74)', margin: '0 0 14px' }}>{body}</p>
-        <span style={{
-          display: 'inline-flex', alignItems: 'center', gap: 8, fontFamily: 'var(--font-cond)',
-          fontWeight: 700, fontSize: 12, letterSpacing: '.08em', textTransform: 'uppercase',
-          color: h ? 'var(--ff-orange)' : 'rgba(255,255,255,.55)', transition: 'color 180ms var(--ease)'
-        }}>
-          {cta} <ArrowRight size={15} style={{ transform: h ? 'translateX(3px)' : 'none', transition: 'transform 220ms var(--ease)' }} />
-        </span>
-      </div>
-    </a>
-  )
-}
-
-const featured = {
-  img: '/assets/national-fleet.jpg', icon: 'truck', tag: 'Freight',
-  title: 'Overnight Road Freight', cta: 'Get a freight quote',
-  body: 'Scheduled overnight line-haul of parcels and pallets between all three metro depots — Johannesburg, Durban and Cape Town. Loaded by night, delivered by morning, tracked the whole way.',
-}
-
-const supporting = [
-  { img: '/assets/delivering.jpg', icon: 'package', tag: 'Express',
-    title: 'Same-Day Courier', cta: 'Request a pickup',
-    body: 'On-demand local pick-up and delivery within Johannesburg, Durban and Cape Town — collected and delivered the same day.' },
-  { img: '/assets/aircraft-overhead.jpg', icon: 'plane', tag: 'Air',
-    title: 'Air Freight', cta: 'Send express',
-    body: 'Same-day express within 60 minutes for urgent shipments, or overnight by 11:00 AM for next-day critical deliveries.' },
-  { img: '/assets/warehouse-loading.jpg', icon: 'warehouse', tag: 'Warehousing',
-    title: 'Warehousing & Depot', cta: 'Tour our depots',
-    body: 'Secure storage, handling and cross-docking at our depots, with inventory management and retail distribution support.' },
-  { img: '/assets/sa-map.jpg', icon: 'globe', tag: 'Cross-Border',
-    title: 'Cross-Border Delivery', cta: 'Ship cross-border',
-    body: 'Road and air freight into Botswana, Lesotho, Mozambique and Eswatini (BLMS) — documentation and border formalities handled.' },
-]
-
-const closer = {
-  img: '/assets/staff-parcel-handover.jpg', icon: 'heart-pulse', tag: 'Healthcare',
-  title: 'Medical & Emergency', cta: 'Talk to dispatch',
-  body: 'Dedicated medical distribution routes and on-demand emergency delivery for healthcare and pharmaceutical clients.',
 }
 
 export default function Services({ onQuote }) {
   return (
-    <section id="services" style={{ background: 'var(--ff-graphite)', padding: '100px 30px' }}>
+    <section id="services" className="ff-section" style={{ background: 'var(--ff-graphite)' }}>
       <div style={{ maxWidth: 1180, margin: '0 auto' }}>
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 mb-10">
           <div>
@@ -174,15 +135,19 @@ export default function Services({ onQuote }) {
             From a single envelope to a contracted national fleet — one partner, one point of contact.</p>
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-5">
-          <div className="lg:w-[55%]">
-            <FeaturedCard {...featured} onClick={onQuote} />
-          </div>
-          <div className="lg:w-[45%] grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {supporting.map(s => <ServiceCard key={s.title} {...s} />)}
-            <WideCard {...closer} />
-          </div>
-        </div>
+        {/* desktop bento */}
+        <motion.div className="hidden md:grid"
+          variants={container} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}
+          style={{ gridTemplateColumns: 'repeat(12, 1fr)', gridTemplateRows: '210px 210px 240px', gap: 14 }}>
+          {services.map(s => <Tile key={s.id} data={s} onQuote={onQuote} />)}
+        </motion.div>
+
+        {/* mobile stack */}
+        <motion.div className="grid md:hidden"
+          variants={container} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.12 }}
+          style={{ gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+          {services.map(s => <Tile key={s.id} data={s} mobile onQuote={onQuote} />)}
+        </motion.div>
       </div>
     </section>
   )

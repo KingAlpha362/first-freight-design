@@ -32,7 +32,7 @@ const branches = [
 
 export default function Contact({ onQuote }) {
   return (
-    <section id="contact" style={{ position: 'relative', overflow: 'hidden', padding: '110px 30px 0' }}>
+    <section id="contact" className="ff-section" style={{ position: 'relative', overflow: 'hidden', paddingBottom: 0 }}>
       <img src="/assets/national-fleet.jpg" alt="" className="ff-graded" style={{
         position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 30%'
       }} />

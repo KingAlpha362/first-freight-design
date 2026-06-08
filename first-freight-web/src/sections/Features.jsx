@@ -56,11 +56,10 @@ const rows = [
 
 export default function Features() {
   return (
-    <section id="features" style={{ background: 'var(--ff-graphite)', padding: '100px 30px 84px' }}>
+    <section id="features" className="ff-section" style={{ background: 'var(--ff-graphite)' }}>
       <div style={{ maxWidth: 1140, margin: '0 auto' }}>
         <div style={{ marginBottom: 56, maxWidth: 560 }}>
-          <span className="ff-eyebrow" style={{ color: 'var(--ff-orange)' }}>Capability</span>
-          <h2 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 'clamp(2.1rem,4vw,3.1rem)', lineHeight: 1.06, color: '#fff', margin: '14px 0 0' }}>
+          <h2 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 'clamp(2.1rem,4vw,3.1rem)', lineHeight: 1.06, color: '#fff', margin: 0 }}>
             Precision logistics.<br /><span style={{ fontStyle: 'italic', color: 'var(--ff-red)' }}>At scale.</span>
           </h2>
         </div>

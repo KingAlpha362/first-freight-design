@@ -99,7 +99,7 @@ export default function Hero({ onQuote, onTrackSubmit }) {
               flex: '1 1 140px', paddingLeft: i === 0 ? 0 : 22, marginLeft: i === 0 ? 0 : 22,
               borderLeft: i === 0 ? 'none' : '1px solid rgba(255,255,255,.14)'
             }}>
-              <div style={{ fontFamily: 'var(--font-display)', fontStyle: 'italic', fontWeight: 700, fontSize: 26, color: '#fff', lineHeight: 1 }}>{n}</div>
+              <div className="ff-figures" style={{ fontFamily: 'var(--font-display)', fontStyle: 'italic', fontWeight: 700, fontSize: 26, color: '#fff', lineHeight: 1 }}>{n}</div>
               <div style={{ fontFamily: 'var(--font-cond)', fontWeight: 600, fontSize: 11, letterSpacing: '.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,.6)', marginTop: 5 }}>{l}</div>
             </div>
           ))}

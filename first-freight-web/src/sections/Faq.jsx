@@ -24,16 +24,15 @@ export default function Faq() {
   const [open, setOpen] = useState(0)
 
   return (
-    <section id="faq" style={{ background: 'var(--ff-white)', color: 'var(--fg-1)', padding: '100px 30px' }}>
+    <section id="faq" className="ff-section" style={{ background: 'var(--ff-white)', color: 'var(--fg-1)' }}>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-16" style={{ maxWidth: 1100, margin: '0 auto', alignItems: 'start' }}>
 
         {/* Left: heading + intro */}
         <div style={{ paddingTop: 4 }}>
-          <span className="ff-eyebrow" style={{ color: 'var(--ff-red)' }}>Good to know</span>
           <h2 style={{
             fontFamily: 'var(--font-display)', fontWeight: 700,
             fontSize: 'clamp(2.4rem,4.5vw,3.4rem)', lineHeight: 1.04,
-            color: 'var(--fg-1)', margin: '14px 0 20px'
+            color: 'var(--fg-1)', margin: '0 0 20px'
           }}>FAQs</h2>
           <p style={{ fontFamily: 'var(--font-body)', fontSize: 16, lineHeight: 1.7, color: 'var(--fg-2)', margin: 0, maxWidth: 380 }}>
             Everything you need to know about our services and operations. Can&rsquo;t find the answer
@@ -62,11 +61,13 @@ export default function Faq() {
                   <span style={{ fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: 15.5 }}>{q}</span>
                   <CircleIcon open={on} />
                 </button>
-                <div style={{ maxHeight: on ? 300 : 0, overflow: 'hidden', transition: 'max-height 300ms var(--ease)' }}>
-                  <p style={{
-                    fontFamily: 'var(--font-body)', fontSize: 14.5, lineHeight: 1.7,
-                    color: 'var(--fg-2)', margin: 0, paddingBottom: 20
-                  }}>{a}</p>
+                <div className="ff-accordion-panel" style={{ gridTemplateRows: on ? '1fr' : '0fr' }}>
+                  <div style={{ overflow: 'hidden', minHeight: 0 }}>
+                    <p style={{
+                      fontFamily: 'var(--font-body)', fontSize: 14.5, lineHeight: 1.7,
+                      color: 'var(--fg-2)', margin: 0, paddingBottom: 20
+                    }}>{a}</p>
+                  </div>
                 </div>
               </div>
             )

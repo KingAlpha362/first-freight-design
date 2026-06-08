@@ -13,13 +13,12 @@ const feats = [
 
 export default function Evolution() {
   return (
-    <section style={{ background: 'var(--ff-white)', color: 'var(--fg-1)', padding: '104px 30px' }}>
+    <section className="ff-section" style={{ background: 'var(--ff-white)', color: 'var(--fg-1)' }}>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center" style={{ maxWidth: 1180, margin: '0 auto' }}>
         <div>
-          <span className="ff-eyebrow" style={{ color: 'var(--ff-red)' }}>Why First Freight</span>
           <h2 style={{
             fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 'clamp(2.1rem,4vw,3.1rem)',
-            lineHeight: 1.08, margin: '16px 0 18px', letterSpacing: '-.01em', color: 'var(--fg-1)'
+            lineHeight: 1.08, margin: '0 0 18px', letterSpacing: '-.01em', color: 'var(--fg-1)'
           }}>
             A grown-up approach<br />to <span style={{ fontStyle: 'italic', color: 'var(--ff-red)' }}>logistics.</span>
           </h2>

@@ -64,7 +64,7 @@ const col3 = testimonials.slice(6, 9)
 
 export default function Testimonials() {
   return (
-    <section id="testimonials" style={{ background: 'var(--ff-paper)', padding: '100px 30px', position: 'relative', overflow: 'hidden' }}>
+    <section id="testimonials" className="ff-section" style={{ background: 'var(--ff-paper)', position: 'relative', overflow: 'hidden' }}>
       <div style={{ maxWidth: 1140, margin: '0 auto' }}>
 
         <motion.div
@@ -74,14 +74,13 @@ export default function Testimonials() {
           viewport={{ once: true }}
           style={{ textAlign: 'center', marginBottom: 56, maxWidth: 540, margin: '0 auto 56px' }}
         >
-          <span className="ff-eyebrow" style={{ color: 'var(--ff-red)' }}>Client testimonials</span>
           <h2 style={{
             fontFamily: 'var(--font-display)',
             fontWeight: 700,
             fontSize: 'clamp(2.1rem,4vw,3.1rem)',
             lineHeight: 1.06,
             color: 'var(--fg-1)',
-            margin: '14px 0 16px',
+            margin: '0 0 16px',
           }}>
             Trusted by South African{' '}
             <span style={{ fontStyle: 'italic', color: 'var(--ff-red)' }}>businesses.</span>

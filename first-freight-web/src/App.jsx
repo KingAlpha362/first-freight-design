@@ -29,7 +29,7 @@ export default function App() {
         <Evolution />
         <Stats />
         <Services onQuote={openQuote} />
-        <Gallery />
+        <Gallery onQuote={openQuote} />
         <Features />
         <NetworkMap />
         <Testimonials />

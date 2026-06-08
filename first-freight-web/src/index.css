@@ -70,6 +70,9 @@
   --sh-brand: 0 8px 22px rgba(222,70,50,.28);
 
   --ease: cubic-bezier(.2,.7,.2,1);
+  /* Stronger custom curves (Emil Kowalski / animations.dev) */
+  --ease-out:    cubic-bezier(.23, 1, .32, 1);     /* entrances & exits — instant, responsive */
+  --ease-in-out: cubic-bezier(.77, 0, .175, 1);    /* on-screen movement & morphs */
   --dur:  180ms;
 }
 
@@ -90,9 +93,26 @@ body {
   color: var(--fg-1);
   background: var(--ff-paper);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+  font-optical-sizing: auto;
+  overflow-x: hidden; /* guard: no sideways scroll from wide/animated elements on mobile */
 }
 
+/* Shared section rhythm — tighter on phones, full breathing room on desktop */
+.ff-section { padding: 60px 20px; }
+@media (min-width: 768px) { .ff-section { padding: 100px 30px; } }
+
 a { color: inherit; text-decoration: none; }
+
+/* Typography line-breaking (impeccable skill): balanced headings, tidy prose */
+h1, h2, h3 { text-wrap: balance; }
+p { text-wrap: pretty; }
+
+/* Accordion height reveal via grid-rows (no layout-property animation) */
+.ff-accordion-panel { display: grid; transition: grid-template-rows 300ms var(--ease); }
+@media (prefers-reduced-motion: reduce) { .ff-accordion-panel { transition: none; } }
 
 /* Frosted input on dark/photographic backgrounds */
 .ff-input-light { color: rgba(255,255,255,.96); }
@@ -125,11 +145,13 @@ a { color: inherit; text-decoration: none; }
   gap: 9px;
   white-space: nowrap;
   box-shadow: var(--sh-brand);
-  transition: all 180ms var(--ease);
+  transition: background 180ms var(--ease), box-shadow 180ms var(--ease), transform 160ms var(--ease-out);
   text-decoration: none;
 }
-.ff-cta-red:hover { background: var(--ff-red-deep); transform: translateY(-1px); }
-.ff-cta-red:active { transform: translateY(1px) scale(.99); }
+@media (hover: hover) and (pointer: fine) {
+  .ff-cta-red:hover { background: var(--ff-red-deep); transform: translateY(-1px); }
+}
+.ff-cta-red:active { transform: scale(.97); }
 
 .ff-cta-line {
   font-family: var(--font-cond);
@@ -147,10 +169,13 @@ a { color: inherit; text-decoration: none; }
   align-items: center;
   gap: 9px;
   white-space: nowrap;
-  transition: all 180ms var(--ease);
+  transition: border-color 180ms var(--ease), background 180ms var(--ease), transform 160ms var(--ease-out);
   text-decoration: none;
 }
-.ff-cta-line:hover { border-color: #fff; background: rgba(255,255,255,.08); }
+@media (hover: hover) and (pointer: fine) {
+  .ff-cta-line:hover { border-color: #fff; background: rgba(255,255,255,.08); }
+}
+.ff-cta-line:active { transform: scale(.97); }
 
 /* Typography helpers */
 .ff-hero   { font-family: var(--font-display); font-weight: 700; font-style: italic; font-size: var(--t-hero); line-height: var(--lh-tight); letter-spacing: -.01em; color: var(--fg-1); }
@@ -160,7 +185,10 @@ a { color: inherit; text-decoration: none; }
 .ff-h4     { font-family: var(--font-body); font-weight: 600; font-size: var(--t-h4); line-height: 1.35; color: var(--fg-1); }
 .ff-body   { font-family: var(--font-body); font-weight: 400; font-size: var(--t-body); line-height: var(--lh-body); color: var(--fg-2); }
 .ff-label  { font-family: var(--font-cond); font-weight: 700; font-size: var(--t-xs); letter-spacing: var(--ls-label); text-transform: uppercase; color: var(--ff-red); }
-.ff-code   { font-family: var(--font-cond); font-weight: 600; letter-spacing: .06em; color: var(--fg-1); }
+.ff-code   { font-family: var(--font-cond); font-weight: 600; letter-spacing: .06em; color: var(--fg-1); font-variant-numeric: tabular-nums slashed-zero; }
+
+/* Tabular figures for stats & counters: aligned columns, no width jitter mid count-up */
+.ff-figures { font-variant-numeric: tabular-nums; }
 
 /* ============================================================
    Premium image system — "Warm Steel" (Phase 1 foundation)

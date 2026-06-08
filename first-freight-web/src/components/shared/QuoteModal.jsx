@@ -69,20 +69,20 @@ export function QuoteForm({ bare = false }) {
                   ))}
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <QField label="First name" placeholder="Thabo" />
                 <QField label="Last name" placeholder="Nkosi" />
               </div>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <QField label="Contact number" type="tel" placeholder="082 000 0000" />
                 <QField label="Company name" placeholder="Acme Retail (Pty) Ltd" />
               </div>
               <QField label="Email" type="email" placeholder="ops@company.co.za" />
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <QField label="Origin" placeholder="Johannesburg" />
                 <QField label="Destination" placeholder="Cape Town" />
               </div>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <QField label="Box dimensions — l×b×h (cm)" placeholder="40 × 30 × 25" />
                 <QField label="Actual mass (kg)" placeholder="24" />
               </div>
@@ -105,10 +105,10 @@ export default function QuoteModal({ onClose }) {
   return (
     <div onClick={onClose} style={{
       position: 'fixed', inset: 0, zIndex: 100, background: 'rgba(20,18,16,.65)',
-      backdropFilter: 'blur(4px)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16,
+      backdropFilter: 'blur(4px)', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', padding: 16,
       overflowY: 'auto'
     }}>
-      <div onClick={e => e.stopPropagation()} style={{ position: 'relative', width: '100%', maxWidth: 560 }}>
+      <div onClick={e => e.stopPropagation()} style={{ position: 'relative', width: '100%', maxWidth: 560, margin: 'auto' }}>
         <button onClick={onClose} aria-label="Close" style={{
           position: 'absolute', top: 14, right: 14, zIndex: 10,
           background: 'rgba(0,0,0,.35)', border: 0, borderRadius: '50%', width: 36, height: 36,

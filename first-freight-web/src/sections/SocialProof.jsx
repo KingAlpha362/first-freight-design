@@ -49,12 +49,9 @@ export default function SocialProof() {
                 height: 64,
                 width: 'auto',
                 objectFit: 'contain',
-                filter: 'grayscale(1) opacity(0.55)',
-                transition: 'filter 220ms ease',
+                filter: 'none',
                 flexShrink: 0,
               }}
-              onMouseEnter={e => { e.currentTarget.style.filter = 'grayscale(0) opacity(1)' }}
-              onMouseLeave={e => { e.currentTarget.style.filter = 'grayscale(1) opacity(0.55)' }}
             />
           ))}
         </div>
